@@ -42,50 +42,111 @@ const Footer = () => {
                   +40 771 234 567
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <MessageCircle size={16} className="text-orange-400" />
-                <a href="https://wa.me/40771234567" target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition-colors">
-                  WhatsApp
-                </a>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail size={16} className="text-orange-400" />
-                <a href="mailto:contact@leoconstruct.ro" className="hover:text-orange-400 transition-colors">
-                  contact@leoconstruct.ro
-                </a>
-              </li>
               <li className="flex items-start gap-2">
                 <MapPin size={16} className="text-orange-400 mt-1" />
-                <span>București, România</span>
+                <span>Alba Iulia, Județul Alba</span>
               </li>
             </ul>
+
+            {/* SAL and SOL - Desktop Only */}
+            <div className="hidden lg:block mt-8 space-y-3">
+              <a 
+                href="https://www.sal.ro" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block hover:opacity-80 transition-opacity"
+              >
+                <img 
+                  src="/images/SAL.png" 
+                  alt="SAL" 
+                  className="h-14 w-auto"
+                />
+              </a>
+              <a 
+                href="https://www.sol.ro" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block hover:opacity-80 transition-opacity"
+              >
+                <img 
+                  src="/images/SOL.png" 
+                  alt="SOL" 
+                  className="h-14 w-auto"
+                />
+              </a>
+            </div>
           </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Servicii</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                  Construcții Case
-                </button>
-              </li>
-              <li>
-                <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                  Renovări
-                </button>
-              </li>
-              <li>
-                <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                  Amenajări Interioare
-                </button>
-              </li>
-              <li>
-                <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                  Instalații
-                </button>
-              </li>
-            </ul>
+          {/* Services and Mobile SAL/SOL Container */}
+          <div className="lg:col-span-1">
+            <div className="flex flex-col md:flex-row gap-8">
+              {/* Services */}
+              <div className="relative">
+                <h4 className="text-lg font-semibold mb-4">Servicii</h4>
+                <div className="flex">
+                  <ul className="space-y-2 text-gray-400 flex-1">
+                    <li>
+                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
+                        Tencuială
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
+                        Tinci și Glet
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
+                        Rigips
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
+                        Gresie și Faianță
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
+                        Placări Polistiren
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
+                        Zidărie
+                      </button>
+                    </li>
+                  </ul>
+
+                  {/* SAL and SOL - Mobile Only */}
+                  <div className="lg:hidden flex flex-col gap-4 ml-8">
+                    <a 
+                      href="https://www.sal.ro" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="hover:opacity-80 transition-opacity"
+                    >
+                      <img 
+                        src="/images/SAL.png" 
+                        alt="SAL" 
+                        className="h-12 w-auto"
+                      />
+                    </a>
+                    <a 
+                      href="https://www.sol.ro" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="hover:opacity-80 transition-opacity"
+                    >
+                      <img 
+                        src="/images/SOL.png" 
+                        alt="SOL" 
+                        className="h-12 w-auto"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Program */}
