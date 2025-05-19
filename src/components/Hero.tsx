@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Hero = () => {
+  const contactMessage = 'Bună! Aș dori să vă contactez pentru mai multe informații.';
+  const contactUrl = `https://wa.me/40700000000?text=${encodeURIComponent(contactMessage)}`;
+
+  useEffect(() => {
+    // Add MyAlice script
+    const script = document.createElement('script');
+    script.innerHTML = `!function(){var e,t,n,a;window.MyAliceWebChat||((t=document.createElement("div")).id="myAliceWebChat",(n=document.createElement("script")).type="text/javascript",n.async=!0,n.src="https://widget.myalice.ai/index.js",(a=(e=document.body.getElementsByTagName("script"))[e.length-1]).parentNode.insertBefore(n,a),a.parentNode.insertBefore(t,a),n.addEventListener("load",(function(){MyAliceWebChat.init({selector:"myAliceWebChat",number:"",message:"",color:"#25D366",channel:"wa",boxShadow:"none",text:"Solicită o ofertă gratuită",theme:"light",position:"right",mb:"20px",mx:"20px",radius:"20px"})})))}();`;
+    document.body.appendChild(script);
+
+    // Cleanup
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image */}
@@ -35,14 +50,16 @@ const Hero = () => {
               Transformăm spațiul tău! Echipa LEO Construct din Alba oferă soluții complete pentru renovări: tencuieli, zidărie, gresie, faianță, glet, rigips, polistiren și tinci de precizie, pentru confortul și estetica dorite.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <button className="relative overflow-hidden group bg-orange-500 hover:bg-orange-600 text-white px-6 sm:px-8 lg:px-10 py-4 lg:py-5 [clip-path:polygon(10px_0,100%_0,calc(100%-10px)_100%,0_100%)] text-base lg:text-lg font-medium shadow-lg transition-all duration-300">
-                <span className="relative z-10 uppercase tracking-wider">Solicită o ofertă</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-              </button>
-              <button className="relative overflow-hidden group bg-white/5 hover:bg-white/10 text-white px-6 sm:px-8 lg:px-10 py-4 lg:py-5 [clip-path:polygon(10px_0,100%_0,calc(100%-10px)_100%,0_100%)] text-base lg:text-lg font-medium transition-all duration-300">
+              <div id="myAliceWebChat"></div>
+              <a 
+                href={contactUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative overflow-hidden group bg-white/5 hover:bg-white/10 text-white px-6 sm:px-8 lg:px-10 py-4 lg:py-5 [clip-path:polygon(10px_0,100%_0,calc(100%-10px)_100%,0_100%)] text-base lg:text-lg font-medium transition-all duration-300 inline-block text-center"
+              >
                 <span className="relative z-10 uppercase tracking-wider">Contactează-ne</span>
                 <div className="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-              </button>
+              </a>
             </div>
           </div>
         </div>

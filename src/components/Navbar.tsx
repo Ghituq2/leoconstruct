@@ -1,6 +1,5 @@
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
-import CTAButton from "./CTAButton";
 
 const navLinks = [
   { name: "Acasă", to: "home" },
@@ -63,7 +62,9 @@ const Navbar = () => {
         <div className="relative h-full flex items-center justify-between px-4">
           <button 
             onClick={() => scrollToSection('home')}
-            className="flex items-center gap-2 lg:gap-4"
+            className={`flex items-center gap-2 lg:gap-4 transition-opacity duration-300 ${
+              open ? 'opacity-0' : 'opacity-100'
+            }`}
           >
             <div className="relative overflow-hidden shrink-0">
               <img 
@@ -97,7 +98,6 @@ const Navbar = () => {
                 {link.name}
               </button>
             ))}
-            <CTAButton className="bg-orange-500 hover:bg-orange-600 text-white px-6 xl:px-8 py-2.5 xl:py-3 [clip-path:polygon(10px_0,100%_0,calc(100%-10px)_100%,0_100%)] shadow-lg hover:shadow-orange-500/30 transition-all duration-300 uppercase tracking-wider text-sm xl:text-base font-medium" />
           </div>
 
           <button
@@ -117,27 +117,33 @@ const Navbar = () => {
         }`}
         style={{ top: '60px' }}
       >
-        <div className={`flex flex-col items-center justify-start pt-8 min-h-[calc(100vh-60px)] gap-6 p-4 transition-all duration-300 ${
+        <div className={`flex flex-col items-center justify-start min-h-[calc(100vh-60px)] transition-all duration-300 ${
           open ? "opacity-100" : "opacity-0"
         }`}>
-          <div className="w-full max-w-md mx-auto flex flex-col gap-2">
+          {/* Logo in mobile menu */}
+          <div className="w-full flex justify-center py-8">
+            <img 
+              src="/images/logo.png" 
+              alt="LEO Construct logo" 
+              className="h-24 w-24 rounded object-contain"
+            />
+          </div>
+          
+          {/* Menu items */}
+          <div className="w-full max-w-md mx-auto flex flex-col gap-6 px-4">
             {navLinks.map(link => (
               <button 
                 key={link.to}
                 onClick={() => scrollToSection(link.to)}
-                className="relative w-full text-center py-3.5 text-lg font-medium text-white uppercase tracking-widest transition-all duration-300
+                className="relative w-full text-center py-7 text-3xl font-medium text-white uppercase tracking-widest transition-all duration-300
                 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
-                after:w-12 after:h-0.5 after:bg-orange-500/5
+                after:w-32 after:h-0.5 after:bg-orange-500/5
                 hover:text-orange-200 after:opacity-0 hover:after:opacity-100 hover:bg-white/5"
               >
                 {link.name}
               </button>
             ))}
           </div>
-          <CTAButton 
-            className="w-full max-w-md mt-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3.5 [clip-path:polygon(10px_0,100%_0,calc(100%-10px)_100%,0_100%)] shadow-lg hover:shadow-orange-500/30 transition-all duration-300 uppercase tracking-wider font-medium text-base" 
-            onClick={() => setOpen(false)} 
-          />
         </div>
       </div>
     </nav>
