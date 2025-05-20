@@ -63,6 +63,9 @@ const CTAButton = ({ className, fullWidth, onClick }: Props) => {
     };
   }, []);
 
+  const contactMessage = 'Bună! Aș dori să vă contactez pentru mai multe informații.';
+  const contactUrl = `https://wa.me/40754472368?text=${encodeURIComponent(contactMessage)}`;
+
   return (
     <div id="myAliceWebChat" className={cn(
       "fixed bottom-5 right-5 z-[9999]",
