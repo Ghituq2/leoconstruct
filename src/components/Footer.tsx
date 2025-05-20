@@ -58,6 +58,7 @@ const Footer = () => {
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-orange-400 hover:text-orange-300 transition-colors"
+                onClick={(e) => e.stopPropagation()}
               >
                 Andreisoft
               </a>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const advantages = [
   {
@@ -144,11 +145,11 @@ const gallery = [
 ];
 
 const Advantages = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (imageUrl: string) => {
-    setSelectedImage(imageUrl);
+  const openModal = (index: number) => {
+    setSelectedImage(index);
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
   };
@@ -157,6 +158,24 @@ const Advantages = () => {
     setSelectedImage(null);
     setIsModalOpen(false);
     document.body.style.overflow = 'auto';
+  };
+
+  const navigateImage = (direction: 'prev' | 'next') => {
+    if (selectedImage === null) return;
+    
+    let newIndex;
+    if (direction === 'prev') {
+      newIndex = selectedImage === 0 ? gallery.length - 1 : selectedImage - 1;
+    } else {
+      newIndex = selectedImage === gallery.length - 1 ? 0 : selectedImage + 1;
+    }
+    setSelectedImage(newIndex);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') navigateImage('prev');
+    if (e.key === 'ArrowRight') navigateImage('next');
+    if (e.key === 'Escape') closeModal();
   };
 
   return (
@@ -249,6 +268,7 @@ const Advantages = () => {
             ></motion.div>
           </div>
 
+          {/* Gallery Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {gallery.map((item, index) => (
               <motion.div
@@ -257,50 +277,79 @@ const Advantages = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group relative overflow-hidden rounded-lg aspect-[4/3] bg-slate-200 cursor-pointer"
-                onClick={() => openModal(item.image)}
+                onClick={() => openModal(index)}
               >
                 <img 
                   src={item.image} 
                   alt={item.title}
-                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Lightbox Modal */}
+        {/* Image Modal */}
         <AnimatePresence>
-          {isModalOpen && selectedImage && (
+          {isModalOpen && selectedImage !== null && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
               onClick={closeModal}
+              onKeyDown={handleKeyDown}
+              tabIndex={0}
             >
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="relative bg-white p-2 rounded-lg shadow-xl max-w-4xl max-h-[90vh]"
+                className="relative max-w-7xl w-full h-full flex flex-col items-center justify-center"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img
-                  src={selectedImage}
-                  alt="Imagine galerie mărită"
-                  className="block max-w-full max-h-[calc(90vh-40px)] object-contain rounded"
-                />
+                {/* Close Button */}
                 <button
                   onClick={closeModal}
-                  className="absolute -top-3 -right-3 bg-orange-500 text-white rounded-full p-1.5 shadow-lg hover:bg-orange-600 transition-colors z-10"
+                  className="absolute top-4 right-4 p-2 text-white/80 hover:text-white bg-black/20 hover:bg-black/40 rounded-full transition-all"
                   aria-label="Închide imaginea"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  <X size={24} />
                 </button>
+
+                {/* Image */}
+                <img
+                  src={gallery[selectedImage].image}
+                  alt={gallery[selectedImage].title}
+                  className="max-h-[80vh] max-w-full object-contain mb-4"
+                />
+
+                {/* Navigation Buttons */}
+                <div className="flex items-center gap-8">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImage('prev');
+                    }}
+                    className="p-3 text-white bg-orange-500 hover:bg-orange-600 rounded-full transition-all"
+                    aria-label="Imaginea anterioară"
+                  >
+                    <ChevronLeft size={28} />
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigateImage('next');
+                    }}
+                    className="p-3 text-white bg-orange-500 hover:bg-orange-600 rounded-full transition-all"
+                    aria-label="Imaginea următoare"
+                  >
+                    <ChevronRight size={28} />
+                  </button>
+                </div>
               </motion.div>
             </motion.div>
           )}
