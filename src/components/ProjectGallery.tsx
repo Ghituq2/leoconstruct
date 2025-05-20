@@ -1,4 +1,8 @@
 
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { projectsData } from '@/data/projects'; // Asigură-te că această cale este corectă
+
 type Project = {
   before: string;
   after: string;
@@ -27,24 +31,98 @@ const gallery: Project[] = [
   }
 ];
 
-const ProjectGallery = () => (
-  <div className="grid md:grid-cols-3 gap-8">
-    {gallery.map((item, idx) => (
-      <div key={idx} className="bg-white shadow rounded-xl p-4 flex flex-col items-center">
-        <div className="w-full mb-3 text-center font-medium">{item.title}</div>
-        <div className="flex gap-2 w-full justify-center">
-          <div className="flex flex-col items-center">
-            <span className="text-xs mb-1 text-gray-500">Before</span>
-            <img src={item.before} className="w-36 h-28 object-cover rounded shadow" alt={`before ${item.title}`}/>
-          </div>
-          <div className="flex flex-col items-center">
-            <span className="text-xs mb-1 text-gray-500">After</span>
-            <img src={item.after} className="w-36 h-28 object-cover rounded shadow" alt={`after ${item.title}`}/>
-          </div>
-        </div>
-        {item.desc && <div className="text-xs text-gray-500 mt-2">{item.desc}</div>}
+const ProjectGallery: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+    document.body.style.overflow = 'auto'; // Restore background scrolling
+  };
+
+  return (
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {projectsData.map((project, index) => (
+          <motion.div
+            key={project.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="bg-white rounded-lg shadow-lg overflow-hidden group"
+          >
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <img
+                src={project.afterImage}
+                alt={`După - ${project.title}`}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 cursor-pointer"
+                onClick={() => openModal(project.afterImage)}
+              />
+              <div 
+                className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
+                onClick={() => openModal(project.afterImage)}
+              >
+                <p className="text-white text-lg font-semibold">Vezi imaginea</p>
+              </div>
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-slate-800 mb-2">{project.title}</h3>
+              <p className="text-sm text-slate-600 mb-1">
+                <span className="font-medium">Locație:</span> {project.location}
+              </p>
+              <p className="text-sm text-slate-600 mb-4">
+                <span className="font-medium">Servicii:</span> {project.services.join(', ')}
+              </p>
+              {/* Optional: Add a button or link to view 'before' image in modal as well, or a carousel */}
+            </div>
+          </motion.div>
+        ))}
       </div>
-    ))}
-  </div>
-);
+
+      <AnimatePresence>
+        {isModalOpen && selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4" // Increased z-index
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative bg-white p-2 rounded-lg shadow-xl max-w-4xl max-h-[90vh]" // Increased max-w
+              onClick={(e) => e.stopPropagation()} // Prevent closing modal when clicking on the image itself
+            >
+              <img
+                src={selectedImage}
+                alt="Imagine proiect mărită"
+                className="block max-w-full max-h-[calc(90vh-40px)] object-contain rounded"
+              />
+              <button
+                onClick={closeModal}
+                className="absolute -top-3 -right-3 bg-orange-500 text-white rounded-full p-1.5 shadow-lg hover:bg-orange-600 transition-colors z-10"
+                aria-label="Închide imaginea"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
 export default ProjectGallery;

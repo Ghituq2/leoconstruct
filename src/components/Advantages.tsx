@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const advantages = [
   {
@@ -108,6 +108,21 @@ const gallery = [
 ];
 
 const Advantages = () => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setIsModalOpen(false);
+    document.body.style.overflow = 'auto';
+  };
+
   return (
     <section className="py-16 bg-gradient-to-b from-white to-orange-50">
       <div className="container mx-auto px-4">
@@ -198,14 +213,15 @@ const Advantages = () => {
             ></motion.div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {gallery.map((item, index) => (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative overflow-hidden rounded-lg aspect-[4/3] bg-slate-200"
+                className="group relative overflow-hidden rounded-lg aspect-[4/3] bg-slate-200 cursor-pointer"
+                onClick={() => openModal(item.image)}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <img 
@@ -221,6 +237,43 @@ const Advantages = () => {
             ))}
           </div>
         </div>
+
+        {/* Lightbox Modal */}
+        <AnimatePresence>
+          {isModalOpen && selectedImage && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+              onClick={closeModal}
+            >
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="relative bg-white p-2 rounded-lg shadow-xl max-w-4xl max-h-[90vh]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={selectedImage}
+                  alt="Imagine galerie mărită"
+                  className="block max-w-full max-h-[calc(90vh-40px)] object-contain rounded"
+                />
+                <button
+                  onClick={closeModal}
+                  className="absolute -top-3 -right-3 bg-orange-500 text-white rounded-full p-1.5 shadow-lg hover:bg-orange-600 transition-colors z-10"
+                  aria-label="Închide imaginea"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

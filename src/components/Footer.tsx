@@ -1,177 +1,68 @@
-import { MessageCircle, Phone, Mail, MapPin } from "lucide-react";
+import React from 'react';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  
   return (
-    <footer className="relative bg-slate-900 text-white pt-16 pb-8">
-      {/* Top decorative border */}
-      <div className="absolute top-0 left-0 w-full h-0.5 lg:h-1 bg-gradient-to-r from-orange-600 via-orange-400 to-orange-600"></div>
-      
-      {/* Diagonal background */}
-      <div className="absolute inset-0 bg-slate-800 [clip-path:polygon(0_15%,100%_0,100%_100%,0_100%)]"></div>
+    <footer className="bg-slate-900 py-8">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between mb-6">
+          {/* Logo and Subtitle */}
+          <div className="flex items-center gap-4">
+            <img 
+              src="/images/logo.png" 
+              alt="LEO Construct logo" 
+              className="h-12 w-12 rounded object-contain"
+            />
+            <div className="flex flex-col">
+              <span className="font-bold text-xl text-white">LEO CONSTRUCT</span>
+              <span className="text-orange-400 text-sm tracking-[0.2em] uppercase">Excelență în Construcții</span>
+            </div>
+          </div>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
+          {/* SAL and SOL Logos */}
+          <div className="flex items-center gap-6">
+            <a 
+              href="https://www.sal.ro" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+            >
               <img 
-                src="/images/logo.png" 
-                alt="LEO Construct logo" 
-                className="w-12 h-12 rounded"
+                src="/images/SAL.png" 
+                alt="SAL" 
+                className="h-12 w-auto"
               />
-              <div>
-                <h3 className="font-bold text-xl">LEO CONSTRUCT</h3>
-                <p className="text-orange-400 text-sm tracking-wider">Excelență în Construcții</p>
-              </div>
-            </div>
-            <p className="text-gray-400 text-sm">
-              Oferim servicii complete de construcții și renovări, cu focus pe calitate și satisfacția clientului.
-            </p>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Contact</h4>
-            <ul className="space-y-3 text-gray-400">
-              <li className="flex items-center gap-2">
-                <Phone size={16} className="text-orange-400" />
-                <a href="tel:+40771234567" className="hover:text-orange-400 transition-colors">
-                  +40 771 234 567
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin size={16} className="text-orange-400 mt-1" />
-                <span>Alba Iulia, Județul Alba</span>
-              </li>
-            </ul>
-
-            {/* SAL and SOL - Desktop Only */}
-            <div className="hidden lg:block mt-8 space-y-3">
-              <a 
-                href="https://www.sal.ro" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block hover:opacity-80 transition-opacity"
-              >
-                <img 
-                  src="/images/SAL.png" 
-                  alt="SAL" 
-                  className="h-14 w-auto"
-                />
-              </a>
-              <a 
-                href="https://www.sol.ro" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="block hover:opacity-80 transition-opacity"
-              >
-                <img 
-                  src="/images/SOL.png" 
-                  alt="SOL" 
-                  className="h-14 w-auto"
-                />
-              </a>
-            </div>
-          </div>
-
-          {/* Services and Mobile SAL/SOL Container */}
-          <div className="lg:col-span-1">
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* Services */}
-              <div className="relative">
-                <h4 className="text-lg font-semibold mb-4">Servicii</h4>
-                <div className="flex">
-                  <ul className="space-y-2 text-gray-400 flex-1">
-                    <li>
-                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                        Tencuială
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                        Tinci și Glet
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                        Rigips
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                        Gresie și Faianță
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                        Placări Polistiren
-                      </button>
-                    </li>
-                    <li>
-                      <button onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-orange-400 transition-colors">
-                        Zidărie
-                      </button>
-                    </li>
-                  </ul>
-
-                  {/* SAL and SOL - Mobile Only */}
-                  <div className="lg:hidden flex flex-col gap-4 ml-8">
-                    <a 
-                      href="https://www.sal.ro" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="hover:opacity-80 transition-opacity"
-                    >
-                      <img 
-                        src="/images/SAL.png" 
-                        alt="SAL" 
-                        className="h-12 w-auto"
-                      />
-                    </a>
-                    <a 
-                      href="https://www.sol.ro" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="hover:opacity-80 transition-opacity"
-                    >
-                      <img 
-                        src="/images/SOL.png" 
-                        alt="SOL" 
-                        className="h-12 w-auto"
-                      />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Program */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Program</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li className="flex justify-between">
-                <span>Luni - Vineri:</span>
-                <span>08:00 - 18:00</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Sâmbătă:</span>
-                <span>09:00 - 14:00</span>
-              </li>
-              <li className="flex justify-between">
-                <span>Duminică:</span>
-                <span>Închis</span>
-              </li>
-            </ul>
+            </a>
+            <a 
+              href="https://www.sol.ro" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+            >
+              <img 
+                src="/images/SOL.png" 
+                alt="SOL" 
+                className="h-12 w-auto"
+              />
+            </a>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-          <p>© {currentYear} LEO Construct. Toate drepturile rezervate.</p>
+        {/* Copyright and Made with love */}
+        <div className="border-t border-gray-800 pt-6">
+          <div className="flex flex-col items-center gap-2 text-center text-sm text-gray-400">
+            <p>© 2025 LEO Construct. Toate drepturile rezervate.</p>
+            <p>
+              Made with <span className="text-orange-500">♥</span> by{" "}
+              <a 
+                href="https://andreisoft.ro" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-orange-400 hover:text-orange-300 transition-colors"
+              >
+                Andreisoft
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
