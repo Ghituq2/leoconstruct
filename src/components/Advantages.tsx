@@ -104,6 +104,42 @@ const gallery = [
     title: "Proiect 10",
     category: "În Lucru",
     image: "/images/galerie/10.jpg"
+  },
+  {
+    id: 11,
+    title: "Proiect 11",
+    category: "În Lucru",
+    image: "/images/galerie/11.jpg"
+  },
+  {
+    id: 12,
+    title: "Proiect 12",
+    category: "În Lucru",
+    image: "/images/galerie/12.jpg"
+  },
+  {
+    id: 13,
+    title: "Proiect 13",
+    category: "În Lucru",
+    image: "/images/galerie/13.jpg"
+  },
+  {
+    id: 14,
+    title: "Proiect 14",
+    category: "În Lucru",
+    image: "/images/galerie/14.jpg"
+  },
+  {
+    id: 15,
+    title: "Proiect 15",
+    category: "În Lucru",
+    image: "/images/galerie/15.jpg"
+  },
+  {
+    id: 16,
+    title: "Proiect 16",
+    category: "În Lucru",
+    image: "/images/galerie/16.jpg"
   }
 ];
 
@@ -150,7 +186,7 @@ const Advantages = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="w-24 h-1 bg-orange-500 mx-auto mb-6"
           ></motion.div>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -187,7 +223,7 @@ const Advantages = () => {
         </div>
 
         {/* Gallery Section */}
-        <div className="mt-20">
+        <div id="gallery" className="mt-20">
           <div className="text-center mb-12">
             <motion.span 
               initial={{ opacity: 0, y: 20 }}
@@ -223,16 +259,11 @@ const Advantages = () => {
                 className="group relative overflow-hidden rounded-lg aspect-[4/3] bg-slate-200 cursor-pointer"
                 onClick={() => openModal(item.image)}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <img 
                   src={item.image} 
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <h3 className="text-white font-semibold">{item.title}</h3>
-                  <p className="text-orange-300 text-sm">{item.category}</p>
-                </div>
               </motion.div>
             ))}
           </div>

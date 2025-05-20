@@ -1,11 +1,14 @@
 import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
+const contactMessage = 'Bună! Aș dori să vă contactez pentru mai multe informații.';
+const contactUrl = `https://wa.me/40754472368?text=${encodeURIComponent(contactMessage)}`;
+
 const navLinks = [
   { name: "Acasă", to: "home" },
   { name: "Servicii", to: "services" },
   { name: "Galerie", to: "gallery" },
-  { name: "Contact", to: "contact" },
+  { name: "Contact", to: contactUrl, isExternal: true },
 ];
 
 const Navbar = () => {
@@ -38,26 +41,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-30 transition-all duration-500 ${
-      scrolled 
-        ? 'h-[60px] lg:h-20 bg-slate-900 shadow-lg' 
-        : 'h-[70px] lg:h-24'
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
     }`}>
-      {/* Top decorative border */}
-      <div className="absolute top-0 left-0 w-full h-0.5 lg:h-1 bg-gradient-to-r from-orange-600 via-orange-400 to-orange-600"></div>
-      
-      {/* Main navbar background with diagonal cut */}
-      <div className={`absolute inset-0 bg-slate-900 transition-all duration-500 ${
-        scrolled 
-          ? 'opacity-100' 
-          : 'opacity-90'
-      }`}>
-        <div className="absolute bottom-0 left-0 w-full h-full bg-slate-800 [clip-path:polygon(0_0,100%_0,100%_85%,0_100%)]"></div>
-      </div>
-
-      {/* Blur overlay */}
-      <div className="absolute inset-0 backdrop-blur-sm"></div>
-
       <div className="container mx-auto h-full relative">
         <div className="relative h-full flex items-center justify-between px-4">
           <button 
@@ -83,20 +69,38 @@ const Navbar = () => {
             </div>
           </button>
 
-          <div className="hidden lg:flex items-center gap-8 xl:gap-12">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map(link => (
-              <button 
-                key={link.to}
-                onClick={() => scrollToSection(link.to)}
-                className={`relative overflow-hidden font-medium text-base xl:text-lg tracking-wide px-2 py-1 text-white uppercase transition-all duration-300
-                before:content-[''] before:absolute before:w-full before:h-[1px] before:bg-orange-500 
-                before:-bottom-0 before:left-0 before:origin-left before:scale-x-0 hover:before:scale-x-100
-                after:content-[''] after:absolute after:w-[6px] after:h-[6px] after:bg-orange-500 after:rounded-full
-                after:top-1/2 after:-translate-y-1/2 after:-left-10 after:transition-all after:duration-300
-                hover:after:left-0 hover:text-orange-200`}
-              >
-                {link.name}
-              </button>
+              link.isExternal ? (
+                <a
+                  key={link.to}
+                  href={link.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative overflow-hidden font-medium text-base xl:text-lg tracking-wide px-2 py-1 text-white uppercase transition-all duration-300
+                  before:content-[''] before:absolute before:w-full before:h-[1px] before:bg-orange-500 
+                  before:-bottom-0 before:left-0 before:origin-left before:scale-x-0 hover:before:scale-x-100
+                  after:content-[''] after:absolute after:w-[6px] after:h-[6px] after:bg-orange-500 after:rounded-full
+                  after:top-1/2 after:-translate-y-1/2 after:-left-10 after:transition-all after:duration-300
+                  hover:after:left-0 hover:text-orange-200"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <button 
+                  key={link.to}
+                  onClick={() => scrollToSection(link.to)}
+                  className="relative overflow-hidden font-medium text-base xl:text-lg tracking-wide px-2 py-1 text-white uppercase transition-all duration-300
+                  before:content-[''] before:absolute before:w-full before:h-[1px] before:bg-orange-500 
+                  before:-bottom-0 before:left-0 before:origin-left before:scale-x-0 hover:before:scale-x-100
+                  after:content-[''] after:absolute after:w-[6px] after:h-[6px] after:bg-orange-500 after:rounded-full
+                  after:top-1/2 after:-translate-y-1/2 after:-left-10 after:transition-all after:duration-300
+                  hover:after:left-0 hover:text-orange-200"
+                >
+                  {link.name}
+                </button>
+              )
             ))}
           </div>
 
@@ -132,16 +136,31 @@ const Navbar = () => {
           {/* Menu items */}
           <div className="w-full max-w-md mx-auto flex flex-col gap-6 px-4">
             {navLinks.map(link => (
-              <button 
-                key={link.to}
-                onClick={() => scrollToSection(link.to)}
-                className="relative w-full text-center py-7 text-3xl font-medium text-white uppercase tracking-widest transition-all duration-300
-                after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
-                after:w-32 after:h-0.5 after:bg-orange-500/5
-                hover:text-orange-200 after:opacity-0 hover:after:opacity-100 hover:bg-white/5"
-              >
-                {link.name}
-              </button>
+              link.isExternal ? (
+                <a
+                  key={link.to}
+                  href={link.to}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative w-full text-center py-7 text-3xl font-medium text-white uppercase tracking-widest transition-all duration-300
+                  after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
+                  after:w-32 after:h-0.5 after:bg-orange-500/5
+                  hover:text-orange-200 after:opacity-0 hover:after:opacity-100 hover:bg-white/5"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <button 
+                  key={link.to}
+                  onClick={() => scrollToSection(link.to)}
+                  className="relative w-full text-center py-7 text-3xl font-medium text-white uppercase tracking-widest transition-all duration-300
+                  after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 
+                  after:w-32 after:h-0.5 after:bg-orange-500/5
+                  hover:text-orange-200 after:opacity-0 hover:after:opacity-100 hover:bg-white/5"
+                >
+                  {link.name}
+                </button>
+              )
             ))}
           </div>
         </div>

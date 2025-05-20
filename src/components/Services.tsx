@@ -74,7 +74,7 @@ const Services = () => {
   const [activeService, setActiveService] = useState(services[0]);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-orange-50">
+    <section id="services" className="py-20 bg-gradient-to-b from-white to-orange-50">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">

@@ -1,5 +1,26 @@
-import { MessageCircle } from "lucide-react";
+import { useEffect } from "react";
 import { cn } from "@/lib/utils";
+
+declare global {
+  interface Window {
+    MyAliceWebChat: {
+      init: (config: {
+        selector: string;
+        number: string;
+        message: string;
+        color: string;
+        channel: string;
+        boxShadow: string;
+        text: string;
+        theme: string;
+        position: string;
+        mb: string;
+        mx: string;
+        radius: string;
+      }) => void;
+    };
+  }
+}
 
 type Props = {
   className?: string;
@@ -7,33 +28,46 @@ type Props = {
   onClick?: () => void;
 };
 
-const WHATSAPP_NUMBER = "+40771234567"; // Replace with actual WhatsApp number
-const WHATSAPP_MESSAGE = "Bună ziua! Aș dori să solicit o ofertă pentru serviciile dumneavoastră.";
-
 const CTAButton = ({ className, fullWidth, onClick }: Props) => {
-  const handleClick = (e: React.MouseEvent) => {
-    if (onClick) {
-      onClick();
-    }
-    // Encode the message for the URL
-    const encodedMessage = encodeURIComponent(WHATSAPP_MESSAGE);
-    // Open WhatsApp in a new tab
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
-    e.preventDefault();
-  };
+  useEffect(() => {
+    // Check if script is already loaded
+    if (window.MyAliceWebChat) return;
+
+    const script = document.createElement("script");
+    script.src = "https://widget.myalice.ai/index.js";
+    script.async = true;
+    script.onload = () => {
+      if (window.MyAliceWebChat) {
+        window.MyAliceWebChat.init({
+          selector: "myAliceWebChat",
+          number: "",
+          message: "",
+          color: "#25D366",
+          channel: "wa",
+          boxShadow: "none",
+          text: "",
+          theme: "light",
+          position: "right",
+          mb: "20px",
+          mx: "20px",
+          radius: "20px"
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
 
   return (
-    <button
-      onClick={handleClick}
-      className={cn(
-        "flex items-center gap-2 px-5 py-2 rounded-md font-semibold shadow transition bg-[#F97316] hover:bg-[#FF7D33] text-white",
-        fullWidth && "justify-center w-full",
-        className
-      )}
-    >
-      <MessageCircle className="w-5 h-5" />
-      Solicită o ofertă gratuită
-    </button>
+    <div id="myAliceWebChat" className={cn(
+      "fixed bottom-5 right-5 z-[9999]",
+      className
+    )} />
   );
 };
 

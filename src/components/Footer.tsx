@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="bg-slate-900 py-8">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-6">
           {/* Logo and Subtitle */}
           <div className="flex items-center gap-4">
             <img 
@@ -29,7 +29,7 @@ const Footer = () => {
               <img 
                 src="/images/SAL.png" 
                 alt="SAL" 
-                className="h-12 w-auto"
+                className="h-10 md:h-12 w-auto"
               />
             </a>
             <a 
@@ -41,7 +41,7 @@ const Footer = () => {
               <img 
                 src="/images/SOL.png" 
                 alt="SOL" 
-                className="h-12 w-auto"
+                className="h-10 md:h-12 w-auto"
               />
             </a>
           </div>

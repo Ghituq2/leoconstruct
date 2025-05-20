@@ -1,23 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const Hero = () => {
   const contactMessage = 'Bună! Aș dori să vă contactez pentru mai multe informații.';
-  const contactUrl = `https://wa.me/40700000000?text=${encodeURIComponent(contactMessage)}`;
-
-  useEffect(() => {
-    // Add MyAlice script
-    const script = document.createElement('script');
-    script.innerHTML = `!function(){var e,t,n,a;window.MyAliceWebChat||((t=document.createElement("div")).id="myAliceWebChat",(n=document.createElement("script")).type="text/javascript",n.async=!0,n.src="https://widget.myalice.ai/index.js",(a=(e=document.body.getElementsByTagName("script"))[e.length-1]).parentNode.insertBefore(n,a),a.parentNode.insertBefore(t,a),n.addEventListener("load",(function(){MyAliceWebChat.init({selector:"myAliceWebChat",number:"",message:"",color:"#25D366",channel:"wa",boxShadow:"none",text:"Solicită o ofertă gratuită",theme:"light",position:"right",mb:"20px",mx:"20px",radius:"20px"})})))}();`;
-    document.body.appendChild(script);
-
-    // Cleanup
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  const contactUrl = `https://wa.me/40754472368?text=${encodeURIComponent(contactMessage)}`;
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img 
@@ -50,7 +38,6 @@ const Hero = () => {
               Transformăm spațiul tău! Echipa LEO Construct din Alba oferă soluții complete pentru renovări: tencuieli, zidărie, gresie, faianță, glet, rigips, polistiren și tinci de precizie, pentru confortul și estetica dorite.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-              <div id="myAliceWebChat"></div>
               <a 
                 href={contactUrl}
                 target="_blank"

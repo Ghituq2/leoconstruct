@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsData } from '@/data/projects'; // Asigură-te că această cale este corectă
@@ -65,14 +64,8 @@ const ProjectGallery: React.FC = () => {
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 cursor-pointer"
                 onClick={() => openModal(project.afterImage)}
               />
-              <div 
-                className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
-                onClick={() => openModal(project.afterImage)}
-              >
-                <p className="text-white text-lg font-semibold">Vezi imaginea</p>
-              </div>
             </div>
-            <div className="p-6">
+            <div className="p-4">
               <h3 className="text-xl font-semibold text-slate-800 mb-2">{project.title}</h3>
               <p className="text-sm text-slate-600 mb-1">
                 <span className="font-medium">Locație:</span> {project.location}
@@ -80,7 +73,6 @@ const ProjectGallery: React.FC = () => {
               <p className="text-sm text-slate-600 mb-4">
                 <span className="font-medium">Servicii:</span> {project.services.join(', ')}
               </p>
-              {/* Optional: Add a button or link to view 'before' image in modal as well, or a carousel */}
             </div>
           </motion.div>
         ))}
