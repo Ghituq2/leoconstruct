@@ -40,8 +40,8 @@ const CTAButton = ({ className, fullWidth, onClick }: Props) => {
       if (window.MyAliceWebChat) {
         window.MyAliceWebChat.init({
           selector: "myAliceWebChat",
-          number: "",
-          message: "",
+          number: "40754472368",
+          message: "Bună! Aș dori să vă contactez pentru mai multe informații.",
           color: "#25D366",
           channel: "wa",
           boxShadow: "none",
